@@ -1,3 +1,5 @@
+import Safari from "@/components/magicui/safari";
+import { AnimatedBeamFeatures } from "@/components/ui/AnimatedBeamFeatures";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PenTool, Zap, Globe, Lock } from "lucide-react";
@@ -6,11 +8,11 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">
       <main className="flex-1 py-20">
-        <section className="w-full py-20  ">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+        <section className="max-w-[90%] mx-auto py-12  flex items-start justify-between">
+          <div className="container px-4 py-4 md:px-6">
+            <div className="flex flex-col space-y-4">
+              <div className="space-y-4">
+                <h1 className="text-3xl font-bold sm:text-4xl md:text-5xl lg:text-6xl/none">
                   Create and Manage Your Blog with Ease
                 </h1>
                 <p className="mx-auto max-w-[700px]  md:text-xl ">
@@ -19,13 +21,19 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button>Get Started</Button>
-                <Button variant="outline">Learn More</Button>
+                <Button size="lg">Get Started</Button>
               </div>
             </div>
           </div>
+          <div className="">
+            <Safari
+              url="pixel.cms"
+              className="size-full"
+              src="/dashboard.png"
+            />
+          </div>
         </section>
-        <section className="w-full py-20   ">
+        <section className="w-3/4 py-20 mx-auto space-y-8">
           <div className="container px-4 md:px-6">
             <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
               <div className="flex flex-col items-center space-y-3 text-center">
@@ -52,6 +60,7 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
+          <AnimatedBeamFeatures />
         </section>
         <section className="w-full py-20  ">
           <div className="container px-4 md:px-6">
