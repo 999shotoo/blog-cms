@@ -4,7 +4,7 @@ import ChatMainDashboard from "@/components/dashboard/main/chat";
 import MainNavbarWrapper from "@/components/dashboard/main/mainnavbarwrapper";
 import { Button } from "@/components/ui/button";
 
-export default function LandingPage(children: React.ReactNode) {
+export default function LandingPage() {
     return (
         <>
             <MainNavbarWrapper>
