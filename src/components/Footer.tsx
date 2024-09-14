@@ -3,8 +3,9 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-      <p className="text-xs ">© 2023 BlogCMS Inc. All rights reserved.</p>
+    <footer className="m-2">
+      <div  className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 bg-primary-foreground rounded-xl ">
+      <p className="text-xs ">© 2024 PixelCMS Inc. All rights reserved.</p>
       <nav className="sm:ml-auto flex gap-4 sm:gap-6">
         <Link className="text-xs hover:underline underline-offset-4" href="#">
           Terms of Service
@@ -13,6 +14,7 @@ export default function Footer() {
           Privacy
         </Link>
       </nav>
+      </div>
     </footer>
   );
 }
