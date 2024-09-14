@@ -3,6 +3,7 @@ import { AnimatedBeamFeatures } from "@/components/ui/AnimatedBeamFeatures";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PenTool, Zap, Globe, Lock } from "lucide-react";
+import Link from "next/link";
 
 export default function LandingPage() {
   return (
@@ -21,7 +22,9 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button size="lg">Get Started</Button>
+                <Button size="lg">
+                  <Link href="/dashboard">Get Started</Link>
+                </Button>
               </div>
             </div>
           </div>

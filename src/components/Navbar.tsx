@@ -1,12 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import { PenTool } from "lucide-react";
-import { SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 
 export default function Navbar() {
   return (
-    <header className="px-4 py-8 lg:px-6 h-14 flex items-center">
+    <header className="px-4 py-8 lg:px-6 h-14 flex items-center border-b">
       <Link className="flex items-center justify-center" href="/">
         <PenTool className="h-6 w-6 mr-2" />
         <span className="font-bold text-2xl">
@@ -26,6 +26,14 @@ export default function Navbar() {
             </Link>
           </Button>
         </SignedOut>
+        <SignedIn>
+          <Button variant="outline">
+            <Link className="text-sm font-medium" href="/dashboard">
+              Go to Dashboard
+            </Link>
+          </Button>
+          <UserButton />
+        </SignedIn>
       </nav>
     </header>
   );
