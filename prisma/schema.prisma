@@ -14,9 +14,61 @@ model User {
   lastName    String?
   email       String?
   phone       String?
-  username    String? @unique
+  username    String?  @unique
   avatarUrl   String?
   client_ip   String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  site        Site[]
+}
+
+model Site {
+  id        String     @id @default(cuid())
+  title     String
+  subdomain String
+  url       String
+  createdAt DateTime   @default(now())
+  user      User       @relation(fields: [userId], references: [id])
+  userId    String
+  article   Articles[]
+}
+
+model Document {
+  id         String    @id @default(cuid())
+  title      String
+  content    String
+  rawContent Json
+  createdAt  DateTime  @default(now())
+  article    Articles?
+}
+
+model Category {
+  id        String     @id @default(cuid())
+  name      String
+  createdAt DateTime   @default(now())
+  article   Articles[]
+}
+
+model Author {
+  id        String     @id @default(cuid())
+  name      String
+  createdAt DateTime   @default(now())
+  article   Articles[]
+}
+
+model Articles {
+  id         String   @id @default(cuid())
+  title      String
+  subtitle   String?
+  slug       String
+  keywords   String[]
+  createdAt  DateTime @default(now())
+  site       Site?     @relation(fields: [siteId], references: [id])
+  siteId     String
+  document   Document? @relation(fields: [documentId], references: [id])
+  documentId String   @unique
+  author     Author?   @relation(fields: [authorId], references: [id])
+  authorId   String
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
 }
