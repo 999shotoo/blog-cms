@@ -26,14 +26,11 @@ import {
   ScanEye,
 } from "lucide-react";
 import Link from "next/link";
-import SiteForm from "../sites/SiteForm";
+import SiteForm from "./SiteForm";
+import { db } from "@/server/db";
 
-export function SitesMainDashboard() {
-  const existingSites = [
-    { id: 1, name: "My Blog", url: "https://myblog.com" },
-    { id: 2, name: "Portfolio", url: "https://myportfolio.com" },
-    { id: 3, name: "E-commerce Store", url: "https://mystore.com" },
-  ];
+export async function SitesMainDashboard() {
+  const existingSites = await db.site.findMany();
   return (
     <>
       <header className="p-2 pb-4 border-b flex items-center justify-between">
@@ -60,7 +57,7 @@ export function SitesMainDashboard() {
           {existingSites.map((site) => (
             <Card key={site.id}>
               <CardHeader>
-                <CardTitle>{site.name}</CardTitle>
+                <CardTitle>{site.title}</CardTitle>
                 <CardDescription>{site.url}</CardDescription>
               </CardHeader>
               <CardFooter className="gap-2">
@@ -70,7 +67,7 @@ export function SitesMainDashboard() {
                     <span className="hidden md:block">Manage Site</span>
                   </Button>
                 </Link>
-                <Link href={`/s/${site.id}`} className="w-full">
+                <Link href={`https://${site.subdomain}.pixelcms.vercel.app/`} className="w-full">
                   <Button variant="outline" className="w-full">
                     <ScanEye className="mr-2 h-4 w-4" />{" "}
                     <span className="hidden md:block">Preview</span>
