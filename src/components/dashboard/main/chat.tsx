@@ -28,7 +28,9 @@ export default function ChatMainDashboard() {
         text: input,
         sender: 'user',
         loading: false,
-        avatar: <Avatar><AvatarImage src="/userpfp.jpg" /></Avatar>,
+        avatar: <Avatar><AvatarImage src="/userpfp.jpg" />
+        <AvatarFallback>User</AvatarFallback>
+        </Avatar>,
       };
       setMessages(prev => [...prev, newMessage]);
 
@@ -45,7 +47,7 @@ export default function ChatMainDashboard() {
           text,
           sender: 'ai',
           loading: true,
-          avatar: <Avatar><AvatarImage src="/aipfp.jpg" /></Avatar>,
+          avatar: <Avatar><AvatarImage src="/aipfp.jpg" /><AvatarFallback>AI</AvatarFallback></Avatar>,
         };
 
         setMessages(prev => [...prev, aiMessage]);
