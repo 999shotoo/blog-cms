@@ -10,7 +10,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   });
   
   const { text } = await generateText({
-    model: groq('llama3-8b-8192'),
+    model: groq('mixtral-8x7b-32768'),
     prompt: messages[0].text,
   });
 
