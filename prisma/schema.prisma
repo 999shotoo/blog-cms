@@ -28,7 +28,7 @@ model Site {
   subdomain String
   url       String
   createdAt DateTime   @default(now())
-  user      User       @relation(fields: [userId], references: [id])
+  user      User       @relation(fields: [userId], references: [clerkUserId])
   userId    String
   article   Articles[]
 }
