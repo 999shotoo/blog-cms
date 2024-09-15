@@ -17,12 +17,12 @@ export default function Navbar() {
       <nav className="ml-auto flex gap-4 sm:gap-6">
         <SignedOut>
         <Link className="text-sm font-medium" href="/sign-up">
-          <Button>
+          <Button variant="default" className="rounded-xl">
               Sign Up
           </Button>
           </Link>
           <Link className="text-sm font-medium" href="/sign-in">
-          <Button variant="outline">
+          <Button variant="outline" className="rounded-xl">
               Sign In
           </Button>
           </Link>
