@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { HeartIcon, GiftIcon, CoffeeIcon } from "lucide-react"
 import AnimatedGridPattern from "@/components/magicui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export default function LandingPage() {
   return (
@@ -24,6 +25,7 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="space-x-4 flex">
+              <Link href="/sign-up">
                 <HoverBorderGradient
                   containerClassName="rounded-full"
                   as="button"
@@ -32,6 +34,8 @@ export default function LandingPage() {
                   <PanelsTopLeft className="w-4 h-4" />
                   <span>Get Started</span>
                 </HoverBorderGradient>
+                </Link>
+                <Link href="/docs/getting-started">
                 <HoverBorderGradient
                   containerClassName="rounded-full"
                   as="button"
@@ -40,6 +44,7 @@ export default function LandingPage() {
                   <BookText className="w-4 h-4" />
                   <span>Read Docs</span>
                 </HoverBorderGradient>
+                </Link>
               </div>
             </div>
           </div>
