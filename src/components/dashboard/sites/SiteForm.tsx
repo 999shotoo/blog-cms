@@ -25,6 +25,7 @@ const schema = z.object({
   title: z.string().min(1),
   description: z.string().min(1).optional(),
   subdomain: z.string().min(1),
+  url: z.string().url(),
   imageUrl: z.string().url().optional(),
 });
 
@@ -127,6 +128,19 @@ export default function SiteForm({
               <FormLabel>Subdomain</FormLabel>
               <FormControl>
                 <Input placeholder="Enter site subdomain" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="url"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>URL</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter site url" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

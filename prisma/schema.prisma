@@ -34,15 +34,18 @@ model Site {
   user        User       @relation(fields: [userId], references: [clerkUserId])
   userId      String
   article     Articles[]
+  document    Document[]
 }
 
 model Document {
   id         String    @id @default(cuid())
   title      String
-  content    String
-  rawContent Json
+  content    String?
+  rawContent Json?
   createdAt  DateTime  @default(now())
   article    Articles?
+  siteId     String
+  site       Site      @relation(fields: [siteId], references: [id])
 }
 
 model Category {

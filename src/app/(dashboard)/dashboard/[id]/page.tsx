@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { db } from "@/server/db";
+import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -18,9 +19,16 @@ interface Params {
 }
 
 export default async function LandingPage(params: Params) {
+  const { userId } = auth();
+
+  if (!userId) {
+    notFound();
+  }
+
   const site = await db.site.findUnique({
     where: {
       id: params.params.id,
+      userId,
     },
   });
 

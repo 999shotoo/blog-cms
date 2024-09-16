@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { db } from "@/server/db";
-import SiteDialog from "./SiteDialog";
+import SiteDialog from "../sites/SiteDialog";
 
 export async function SitesMainDashboard() {
   const existingSites = await db.site.findMany();
