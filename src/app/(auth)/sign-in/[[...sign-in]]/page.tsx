@@ -19,14 +19,14 @@ export default function SignInPage() {
       </div>
       <div className="grid min-h-screen w-full grid-cols-1 lg:grid-cols-2">
         {/* <div className="relative hidden lg:block bg-primary-foreground rounded-xl m-4 overflow-hidden"> */}
-        <Image src={"/login.jpg"} alt={""} width={1000} height={720} className="rounded-xl m-4 max-h-[96vh]" style={
+        <Image src={"/login.jpg"} alt={""} width={1000} height={720} className="rounded-xl m-4 max-h-[96vh] hidden xl:block" style={
           {
             objectFit: "cover",
             objectPosition: "end",
           }
         } />
         {/* </div> */}
-        <div className="flex items-center justify-center p-6 sm:p-12">
+        <div className="flex items-center mx-auto justify-center p-6 sm:p-12">
           <SignIn />
         </div>
       </div>

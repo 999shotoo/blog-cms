@@ -84,7 +84,7 @@ export default function DashNavbar({
                                 </Button>
                             </SheetTrigger>
                             <SheetContent side="left" className="flex flex-col rounded-xl h-[98vh] m-2">
-                                <div className="pt-10">
+                                <div className="mt-10">
                                     <MobileNav navItems={navItems} />
                                 </div>
                                 <div className="mt-auto flex gap-4">

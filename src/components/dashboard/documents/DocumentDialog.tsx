@@ -50,7 +50,7 @@ export default function DocumentDialog({ siteId }: { siteId: string }) {
         description: res.message,
       });
       setOpen(false);
-      router.push(`/dashboard/${siteId}/documents/${res.data.documentId}/edit`);
+      router.push(`/dashboard/${siteId}/documents/${res.data?.documentId}/edit`);
       return;
     }
 

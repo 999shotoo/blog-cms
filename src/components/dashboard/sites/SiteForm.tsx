@@ -19,7 +19,8 @@ import { useToast } from "@/hooks/use-toast";
 import { ButtonLoading } from "@/components/ui/button-loading";
 import { createSite } from "@/server/actions/create-site";
 import { Textarea } from "@/components/ui/textarea";
-import { UploadButton } from "@/lib/uploadthing";
+import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
+import { Box } from "lucide-react";
 
 const schema = z.object({
   title: z.string().min(1),
@@ -154,10 +155,18 @@ export default function SiteForm({
               <FormLabel>OG Image</FormLabel>
               <FormControl>
                 <div className="space-y-4">
-                  <UploadButton
+                  <UploadDropzone
                     endpoint="imageUploader"
                     onClientUploadComplete={onUploadComplete}
                     onUploadError={onUploadError}
+                    appearance={{
+                      uploadIcon:{
+                        width: 42,
+                        height: 42,
+                        padding: 4,
+                      }
+                      }
+                    }
                   />
                   <Input
                     {...field}
