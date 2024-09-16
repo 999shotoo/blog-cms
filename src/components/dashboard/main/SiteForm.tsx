@@ -18,10 +18,14 @@ import { DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { ButtonLoading } from "@/components/ui/button-loading";
 import { createSite } from "@/server/actions/create-site";
+import { Textarea } from "@/components/ui/textarea";
+import { UploadButton } from "@/lib/uploadthing";
 
 const schema = z.object({
   title: z.string().min(1),
+  description: z.string().min(1).optional(),
   subdomain: z.string().min(1),
+  imageUrl: z.string().url().optional(),
 });
 
 export default function SiteForm() {
@@ -31,23 +35,55 @@ export default function SiteForm() {
   });
   const { toast } = useToast();
 
-  async function onSubmit(data: z.infer<typeof schema>) {
-    const res = await createSite(data);
+  const onUploadComplete = React.useCallback(
+    (res: any[]) => {
+      if (res && res.length > 0 && res[0].url) {
+        const fileUrl = res[0].url;
+        form.setValue("imageUrl", fileUrl);
+        toast({
+          title: "Upload Completed",
+          description: "Image URL has been saved to the form.",
+        });
+      } else {
+        toast({
+          title: "Upload Error",
+          description: "Failed to get the image URL from the upload response.",
+          variant: "destructive",
+        });
+      }
+    },
+    [form, toast]
+  );
 
-    if (!res.success) {
+  const onUploadError = React.useCallback(
+    (error: Error) => {
       toast({
-        title: "Error creating site",
-        description: res.message,
+        title: "Error",
+        description: `Upload failed: ${error.message}`,
         variant: "destructive",
       });
-      return;
-    }
+    },
+    [toast]
+  );
 
-    toast({
-      title: "Site created successfully",
-      description: res.message,
-    });
-    return;
+  async function onSubmit(data: z.infer<typeof schema>) {
+    // const res = await createSite(data);
+
+    // if (!res.success) {
+    //   toast({
+    //     title: "Error creating site",
+    //     description: res.message,
+    //     variant: "destructive",
+    //   });
+    //   return;
+    // }
+
+    // toast({
+    //   title: "Site created successfully",
+    //   description: res.message,
+    // });
+    // return;
+    console.log(data);
   }
 
   return (
@@ -68,12 +104,50 @@ export default function SiteForm() {
         />
         <FormField
           control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Enter site description..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="subdomain"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Subdomain</FormLabel>
               <FormControl>
                 <Input placeholder="Enter site subdomain" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="imageUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>OG Image</FormLabel>
+              <FormControl>
+                <div className="space-y-4">
+                  <UploadButton
+                    endpoint="imageUploader"
+                    onClientUploadComplete={onUploadComplete}
+                    onUploadError={onUploadError}
+                  />
+                  <Input
+                    {...field}
+                    placeholder="Image URL will appear here"
+                    readOnly
+                    disabled
+                  />
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>

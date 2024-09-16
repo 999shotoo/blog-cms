@@ -60,21 +60,21 @@ export async function SitesMainDashboard() {
                 <CardTitle>{site.title}</CardTitle>
                 <CardDescription>{site.url}</CardDescription>
               </CardHeader>
-              <CardFooter className="gap-2">
-                <Link href={`/dashboard/${site.id}`} className="w-full">
-                  <Button variant="outline" className="w-full">
+              <CardFooter className="flex flex-wrap gap-2">
+                <Link href={`/dashboard/${site.id}`} >
+                  <Button variant="outline" >
                     <NotebookPen className="mr-2 h-4 w-4" />{" "}
                     <span className="hidden md:block">Manage Site</span>
                   </Button>
                 </Link>
-                <Link href={`https://${site.subdomain}.pixelcms.vercel.app/`} className="w-full">
-                  <Button variant="outline" className="w-full">
+                <Link href={`https://${site.subdomain}.pixelcms.vercel.app/`} >
+                  <Button variant="outline" >
                     <ScanEye className="mr-2 h-4 w-4" />{" "}
                     <span className="hidden md:block">Preview</span>
                   </Button>
                 </Link>
-                <Link href={site.url} className="w-full">
-                  <Button variant="outline" className="w-full">
+                <Link href={site.url} >
+                  <Button variant="outline" >
                     <Globe className="mr-2 h-4 w-4" />{" "}
                     <span className="hidden md:block">Visit Site</span>
                   </Button>
