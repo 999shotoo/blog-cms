@@ -1,13 +1,18 @@
-"use client";
 
 import Link from "next/link"
-import { useParams } from "next/navigation"
+import NotFound from "../not-found";
+import { db } from "@/server/db";
 
-export default function Component() {
-
-  const params = useParams();
-  const tenant = params?.subdomain || "";
-  console.log(tenant)
+export default async function Component({ params }: { params: { subdomain: string } }) {
+  const tenant = params?.subdomain;
+  const getsiteinfo = await db.site.findUnique({
+    where: {
+      subdomain: tenant,
+    },
+  })
+  if(!getsiteinfo) {
+  return <NotFound />
+  }
 
   return (
     <div className="flex flex-col min-h-screen">

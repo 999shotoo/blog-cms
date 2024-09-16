@@ -41,9 +41,9 @@ export default clerkMiddleware(async (auth, req) => {
       // Reescribe la URL a una ruta dinámica basada en el subdominio
       return NextResponse.rewrite(new URL(`/${subdomain}${url.pathname}`, req.url));
     }
-    if (!subdomainData) {
-      // Redirect to the main domain if the subdomain doesn't exist
-      return NextResponse.redirect(new URL(`https://${allowedDomains[0]}${url.pathname}`, req.url));
+    if (!subdomains?.some((d: { subdomain: string; }) => d.subdomain === subdomain)) {
+      const mainDomainUrl = `http://${allowedDomains[0]}${req.nextUrl.pathname}`;
+      return NextResponse.redirect(new URL(mainDomainUrl, req.url));
     }
   } catch (error) {
     console.error(error);
