@@ -3,7 +3,8 @@ import {
     createRouteMatcher
   } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
-import subdomains from './subdomains.json';
+import { getSubdomains } from './server/actions/getsubdomains';
+
 
   const isProtectedRoute = createRouteMatcher([
     '/dashboard(.*)',
@@ -15,6 +16,7 @@ import subdomains from './subdomains.json';
     
     const url = req.nextUrl;
     const hostname = req.headers.get("host");
+    const subdomains = await getSubdomains() as { subdomain: string; }[];
   
     // Define los dominios permitidos (localhost y dominio para producción)
     // Define allowed Domains (localhost and production domain)
@@ -30,7 +32,7 @@ import subdomains from './subdomains.json';
   
     // Si estamos en un dominio habilitado y no es un subdominio, permitimos la solicitud.
     // If we stay in a allowed domain and its not a subdomain, allow the request.
-    if (isAllowedDomain && !subdomains.some(d => d.subdomain === subdomain)) {
+    if (isAllowedDomain && !subdomains.some((d: { subdomain: string; }) => d.subdomain === subdomain)) {
       return NextResponse.next();
     }
   
