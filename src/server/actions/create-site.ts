@@ -4,7 +4,12 @@ import { auth } from "@clerk/nextjs/server";
 import { db } from "../db";
 import { revalidatePath } from "next/cache";
 
-export async function createSite(data: { title: string; subdomain: string }) {
+export async function createSite(data: {
+  title: string;
+  subdomain: string;
+  description?: string;
+  imageUrl?: string;
+}) {
   const { userId } = auth();
 
   try {
@@ -14,6 +19,8 @@ export async function createSite(data: { title: string; subdomain: string }) {
           title: data.title,
           subdomain: data.subdomain,
           url: `https://${data.subdomain}.${process.env.NEXT_PUBLIC_SITE_URL}`,
+          description: data.description,
+          imageUrl: data.imageUrl,
           userId,
         },
       });

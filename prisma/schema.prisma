@@ -24,14 +24,16 @@ model User {
 }
 
 model Site {
-  id        String     @id @default(cuid())
-  title     String
-  subdomain String     @unique
-  url       String
-  createdAt DateTime   @default(now())
-  user      User       @relation(fields: [userId], references: [clerkUserId])
-  userId    String
-  article   Articles[]
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  subdomain   String     @unique
+  url         String
+  imageUrl    String?
+  createdAt   DateTime   @default(now())
+  user        User       @relation(fields: [userId], references: [clerkUserId])
+  userId      String
+  article     Articles[]
 }
 
 model Document {
@@ -58,18 +60,18 @@ model Author {
 }
 
 model Articles {
-  id         String   @id @default(cuid())
+  id         String    @id @default(cuid())
   title      String
   subtitle   String?
   slug       String
   keywords   String[]
-  createdAt  DateTime @default(now())
+  createdAt  DateTime  @default(now())
   site       Site?     @relation(fields: [siteId], references: [id])
   siteId     String
   document   Document? @relation(fields: [documentId], references: [id])
-  documentId String   @unique
+  documentId String    @unique
   author     Author?   @relation(fields: [authorId], references: [id])
   authorId   String
   categoryId String
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category  @relation(fields: [categoryId], references: [id])
 }

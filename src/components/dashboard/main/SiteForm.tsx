@@ -28,7 +28,11 @@ const schema = z.object({
   imageUrl: z.string().url().optional(),
 });
 
-export default function SiteForm() {
+export default function SiteForm({
+  setOpen,
+}: {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const form = useForm<z.infer<typeof schema>>({
     defaultValues: { title: "", subdomain: "" },
     resolver: zodResolver(schema),
@@ -67,23 +71,23 @@ export default function SiteForm() {
   );
 
   async function onSubmit(data: z.infer<typeof schema>) {
-    // const res = await createSite(data);
+    const res = await createSite(data);
 
-    // if (!res.success) {
-    //   toast({
-    //     title: "Error creating site",
-    //     description: res.message,
-    //     variant: "destructive",
-    //   });
-    //   return;
-    // }
+    if (!res.success) {
+      toast({
+        title: "Error creating site",
+        description: res.message,
+        variant: "destructive",
+      });
+      return;
+    }
 
-    // toast({
-    //   title: "Site created successfully",
-    //   description: res.message,
-    // });
-    // return;
-    console.log(data);
+    toast({
+      title: "Site created successfully",
+      description: res.message,
+    });
+    setOpen(false);
+    return;
   }
 
   return (
