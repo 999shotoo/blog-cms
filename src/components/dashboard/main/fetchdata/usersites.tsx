@@ -1,24 +1,35 @@
+import { MagicCard } from "@/components/magicui/magic-card";
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { db } from "@/server/db";
 import { auth } from "@clerk/nextjs/server";
 import { Globe, NotebookPen, ScanEye } from "lucide-react";
 import Link from "next/link";
+import { cookies } from "next/headers";
 
-export default async function UserSites(){
-    const {userId} = auth();
-    const existingSites = await db.site.findMany({
-      where: {
-        userId: userId as string,
-      },
-    });
-    return (
-        <>
-        <div>
-            {existingSites.length !== 0 ? (
+export default async function UserSites() {
+  const cookieStore = cookies();
+  const theme = cookieStore.get("theme");
+  console.log(theme);
+  const { userId } = auth();
+  const existingSites = await db.site.findMany({
+    where: {
+      userId: userId as string,
+    },
+  });
+  return (
+    <>
+      <div>
+        {existingSites.length !== 0 ? (
           <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 m-2 ">
             {existingSites.map((site) => (
-              <Card key={site.id} className="bg-primary-foreground">
+              <MagicCard key={site.id} className="cursor-pointer flex-col">
                 <CardHeader>
                   <CardTitle>{site.title}</CardTitle>
                   <CardDescription>{site.url}</CardDescription>
@@ -43,7 +54,7 @@ export default async function UserSites(){
                     </Button>
                   </Link>
                 </CardFooter>
-              </Card>
+              </MagicCard>
             ))}
           </div>
         ) : (
@@ -56,7 +67,7 @@ export default async function UserSites(){
             </div>
           </div>
         )}
-        </div>
-        </>
-    )
+      </div>
+    </>
+  );
 }

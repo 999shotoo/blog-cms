@@ -16,22 +16,22 @@ export default function Navbar() {
       </Link>
       <nav className="ml-auto flex gap-4 sm:gap-6">
         <SignedOut>
-        <Link className="text-sm font-medium" href="/sign-up">
-          <Button variant="default" className="rounded-xl">
+          <Link className="text-sm font-medium" href="/sign-up">
+            <Button variant="default" className="rounded-xl">
               SignUp
-          </Button>
+            </Button>
           </Link>
           <Link className="text-sm font-medium" href="/sign-in">
-          <Button variant="outline" className="rounded-xl">
+            <Button variant="outline" className="rounded-xl">
               SignIn
-          </Button>
+            </Button>
           </Link>
         </SignedOut>
         <SignedIn>
-        <Link className="text-sm font-medium" href="/dashboard">
-          <Button variant="outline" className="rounded-xl">
-              Go to Dashboard
-          </Button>
+          <Link className="text-sm font-medium" href="/dashboard">
+            <Button variant="outline" className="rounded-xl">
+              Dashboard
+            </Button>
           </Link>
           <Profile />
         </SignedIn>
