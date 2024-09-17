@@ -160,13 +160,12 @@ export default function SiteForm({
                     onClientUploadComplete={onUploadComplete}
                     onUploadError={onUploadError}
                     appearance={{
-                      uploadIcon:{
+                      uploadIcon: {
                         width: 42,
                         height: 42,
                         padding: 4,
-                      }
-                      }
-                    }
+                      },
+                    }}
                   />
                   <Input
                     {...field}
