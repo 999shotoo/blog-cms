@@ -35,6 +35,8 @@ model Site {
   userId      String
   article     Articles[]
   document    Document[]
+  author      Author[]
+  category    Category[]
 }
 
 model Document {
@@ -52,6 +54,8 @@ model Category {
   name      String
   createdAt DateTime   @default(now())
   article   Articles[]
+  site       Site?     @relation(fields: [siteId], references: [id])
+  siteId     String
 }
 
 model Author {
@@ -61,6 +65,8 @@ model Author {
   bio       String?
   createdAt DateTime   @default(now())
   article   Articles[]
+  site       Site?     @relation(fields: [siteId], references: [id])
+  siteId     String
 }
 
 model Articles {

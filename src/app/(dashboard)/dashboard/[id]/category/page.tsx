@@ -15,7 +15,7 @@ export default function LandingPage(params: Params) {
           <header className="p-2 pb-4 border-b">
             <h1 className="text-xl font-bold">Create a category</h1>
           </header>
-          <CategoryForm />
+          <CategoryForm siteId={params.params.id} />
         </main>
       </SitesNavbarWrapper>
     </>

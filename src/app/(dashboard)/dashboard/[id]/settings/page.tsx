@@ -1,3 +1,6 @@
+import { DataTable } from "@/components/dashboard/data-table";
+import { columns as authorsColumns } from "@/components/dashboard/settings/authors/columns";
+import { columns as categoriesColumns } from "@/components/dashboard/settings/categories/columns";
 import GeneralSettings from "@/components/dashboard/settings/GeneralSettings";
 import SitesNavbarWrapper from "@/components/dashboard/sites/sitesdashboardwrapper";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -15,8 +18,29 @@ export default async function LandingPage(params: Params) {
       id: params.params.id,
     },
   });
+  const authors = await db.author.findMany({
+    where: {
+      siteId: params.params.id,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      createdAt: true,
+    },
+  });
+  const categories = await db.category.findMany({
+    where: {
+      siteId: params.params.id,
+    },
+    select: {
+      id: true,
+      name: true,
+      createdAt: true,
+    },
+  });
 
-  if (!site) {
+  if (!site || !authors || !categories) {
     return null;
   }
 
@@ -36,6 +60,12 @@ export default async function LandingPage(params: Params) {
               </TabsList>
               <TabsContent className="py-6" value="general">
                 <GeneralSettings site={site} />
+              </TabsContent>
+              <TabsContent className="py-6" value="authors">
+                <DataTable columns={authorsColumns} data={authors} />
+              </TabsContent>
+              <TabsContent className="py-6" value="categories">
+                <DataTable columns={categoriesColumns} data={categories} />
               </TabsContent>
             </Tabs>
           </div>

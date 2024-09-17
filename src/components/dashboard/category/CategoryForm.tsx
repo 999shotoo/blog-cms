@@ -22,7 +22,7 @@ const schema = z.object({
   name: z.string().min(1),
 });
 
-export default function CategoryForm() {
+export default function CategoryForm({ siteId }: { siteId: string }) {
   const form = useForm<z.infer<typeof schema>>({
     defaultValues: { name: "" },
     resolver: zodResolver(schema),
@@ -30,7 +30,7 @@ export default function CategoryForm() {
   const { toast } = useToast();
 
   async function onSubmit(data: z.infer<typeof schema>) {
-    const res = await createCategory(data);
+    const res = await createCategory({...data, siteId});
 
     if (!res.success) {
       toast({
@@ -62,7 +62,7 @@ export default function CategoryForm() {
                   Name <span className="text-destructive">*</span>
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter author name" {...field} />
+                  <Input placeholder="Enter category name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { db } from "../db";
 import { revalidatePath } from "next/cache";
 
-export async function createCategory(data: { name: string }) {
+export async function createCategory(data: { name: string; siteId: string }) {
   const { userId } = auth();
 
   try {
@@ -12,6 +12,7 @@ export async function createCategory(data: { name: string }) {
       await db.category.create({
         data: {
           name: data.name,
+          siteId: data.siteId,
         },
       });
       revalidatePath("/dashboard");

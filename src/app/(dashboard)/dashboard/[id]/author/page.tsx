@@ -15,7 +15,7 @@ export default function LandingPage(params: Params) {
           <header className="px-2 pb-4 border-b">
             <h1 className="text-xl font-bold">Add an author</h1>
           </header>
-          <AuthorForm />
+          <AuthorForm siteId={params.params.id} />
         </main>
       </SitesNavbarWrapper>
     </>

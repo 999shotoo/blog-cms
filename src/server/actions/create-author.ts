@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 
 export async function createAuthor(data: {
   name: string;
+  siteId: string
   email?: string;
   bio?: string;
 }) {
@@ -18,6 +19,7 @@ export async function createAuthor(data: {
           name: data.name,
           email: data.email ?? null,
           bio: data.bio ?? null,
+          siteId: data.siteId,
         },
       });
       revalidatePath("/dashboard");

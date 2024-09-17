@@ -25,15 +25,15 @@ const schema = z.object({
   bio: z.string().min(1).optional(),
 });
 
-export default function AuthorForm() {
+export default function AuthorForm({ siteId }: { siteId: string }) {
   const form = useForm<z.infer<typeof schema>>({
-    defaultValues: { name: "", email: "", bio: "" },
+    defaultValues: { name: "" },
     resolver: zodResolver(schema),
   });
   const { toast } = useToast();
 
   async function onSubmit(data: z.infer<typeof schema>) {
-    const res = await createAuthor(data);
+    const res = await createAuthor({ ...data, siteId });
 
     if (!res.success) {
       toast({
