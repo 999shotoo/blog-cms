@@ -41,7 +41,6 @@ model Document {
   id         String    @id @default(cuid())
   title      String
   content    String?
-  rawContent Json?
   createdAt  DateTime  @default(now())
   article    Articles?
   siteId     String
