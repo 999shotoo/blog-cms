@@ -18,14 +18,14 @@ export default function Navbar() {
         <SignedOut>
           <Link className="text-sm font-medium" href="/sign-up">
             <Button variant="default" className="rounded-xl">
-              SignUp
+              Login
             </Button>
           </Link>
-          <Link className="text-sm font-medium" href="/sign-in">
+          {/* <Link className="text-sm font-medium" href="/sign-in">
             <Button variant="outline" className="rounded-xl">
               SignIn
             </Button>
-          </Link>
+          </Link> */}
         </SignedOut>
         <SignedIn>
           <Link className="text-sm font-medium" href="/dashboard">

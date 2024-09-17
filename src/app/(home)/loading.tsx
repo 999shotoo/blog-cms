@@ -18,7 +18,7 @@ export default function Loading() {
             </div>
           </div>
           <div>
-            <Skeleton className="h-[1080px] w-[1300px] mt-20 rounded-xl" />
+            <Skeleton className="h-[1080px] mt-20 rounded-xl" />
           </div>
         </div>
       </section>
