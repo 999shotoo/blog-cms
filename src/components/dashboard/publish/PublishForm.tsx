@@ -192,10 +192,19 @@ export default function PublishForm({
             render={({ field }) => (
               <FormItem className="">
                 <FormLabel>Author</FormLabel>
-                <Select onValueChange={field.onChange}>
+                <Select
+                  disabled={authors.length === 0}
+                  onValueChange={field.onChange}
+                >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select an author" />
+                      <SelectValue
+                        placeholder={
+                          authors.length === 0
+                            ? "Please create an author"
+                            : "Select an author"
+                        }
+                      />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -216,10 +225,19 @@ export default function PublishForm({
             render={({ field }) => (
               <FormItem className="">
                 <FormLabel>Category</FormLabel>
-                <Select onValueChange={field.onChange}>
+                <Select
+                  disabled={categories.length === 0}
+                  onValueChange={field.onChange}
+                >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a category" />
+                      <SelectValue
+                        placeholder={
+                          categories.length === 0
+                            ? "Please create a category"
+                            : "Select a category"
+                        }
+                      />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -240,10 +258,19 @@ export default function PublishForm({
             render={({ field }) => (
               <FormItem className="col-span-2">
                 <FormLabel>Category</FormLabel>
-                <Select onValueChange={field.onChange}>
+                <Select
+                  disabled={documents.length === 0}
+                  onValueChange={field.onChange}
+                >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a docuemnt" />
+                      <SelectValue
+                        placeholder={
+                          documents.length === 0
+                            ? "Please create a document"
+                            : "Select a document"
+                        }
+                      />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
