@@ -26,6 +26,7 @@ import { ButtonLoading } from "@/components/ui/button-loading";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { publishArticle } from "@/server/actions/publish-article";
+import { UploadDropzone } from "@/lib/uploadthing";
 
 const schema = z.object({
   title: z.string().min(1),
@@ -37,6 +38,7 @@ const schema = z.object({
       text: z.string(),
     })
   ),
+  imageUrl: z.string().url().optional(),
   documentId: z.string().min(1),
   categoryId: z.string().min(1),
   authorId: z.string().min(1),
@@ -83,6 +85,37 @@ export default function PublishForm({
       .replace(/^-+/, "") // Trim dashes from the start
       .replace(/-+$/, ""); // Trim dashes from the end
   };
+
+  const onUploadComplete = React.useCallback(
+    (res: any[]) => {
+      if (res && res.length > 0 && res[0].url) {
+        const fileUrl = res[0].url;
+        form.setValue("imageUrl", fileUrl);
+        toast({
+          title: "Upload Completed",
+          description: "Image URL has been saved to the form.",
+        });
+      } else {
+        toast({
+          title: "Upload Error",
+          description: "Failed to get the image URL from the upload response.",
+          variant: "destructive",
+        });
+      }
+    },
+    [form, toast]
+  );
+
+  const onUploadError = React.useCallback(
+    (error: Error) => {
+      toast({
+        title: "Error",
+        description: `Upload failed: ${error.message}`,
+        variant: "destructive",
+      });
+    },
+    [toast]
+  );
 
   // Watch the title field and update slug accordingly
   const title = watch("title");
@@ -285,6 +318,39 @@ export default function PublishForm({
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem className="col-span-2">
+                <FormLabel>OG Image</FormLabel>
+                <FormControl>
+                  <div className="space-y-4">
+                    <UploadDropzone
+                      endpoint="imageUploader"
+                      onClientUploadComplete={onUploadComplete}
+                      onUploadError={onUploadError}
+                      appearance={{
+                        uploadIcon: {
+                          width: 42,
+                          height: 42,
+                          padding: 4,
+                        },
+                      }}
+                    />
+                    <Input
+                      {...field}
+                      placeholder="Image URL will appear here"
+                      readOnly
+                      disabled
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <div className="w-fit">
             {form.formState.isSubmitting ? (
               <ButtonLoading>Publishing...</ButtonLoading>

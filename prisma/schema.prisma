@@ -75,6 +75,7 @@ model Articles {
   subtitle   String?
   slug       String
   keywords   String[]
+  ogImage    String?
   createdAt  DateTime  @default(now())
   site       Site?     @relation(fields: [siteId], references: [id])
   siteId     String

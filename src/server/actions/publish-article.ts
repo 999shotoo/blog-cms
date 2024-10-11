@@ -11,6 +11,7 @@ export async function publishArticle(data: {
   documentId: string;
   categoryId: string;
   authorId: string;
+  imageUrl?: string;
   siteId: string;
 }) {
   try {
@@ -22,6 +23,7 @@ export async function publishArticle(data: {
         keywords: data.keywords,
         documentId: data.documentId,
         categoryId: data.categoryId,
+        ogImage: data.imageUrl,
         authorId: data.authorId,
         siteId: data.siteId,
       },
