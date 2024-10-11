@@ -10,13 +10,9 @@ import {
 import { db } from "@/server/db";
 import { auth } from "@clerk/nextjs/server";
 import { Globe, NotebookPen, ScanEye } from "lucide-react";
-import Link from "next/link";
-import { cookies } from "next/headers";
+import Link from "next/link"; 
 
 export default async function UserSites() {
-  const cookieStore = cookies();
-  const theme = cookieStore.get("theme");
-  console.log(theme);
   const { userId } = auth();
   const existingSites = await db.site.findMany({
     where: {
@@ -41,16 +37,16 @@ export default async function UserSites() {
                       <span className="hidden md:block">Manage Site</span>
                     </Button>
                   </Link>
-                  <Link href={`https://${site.subdomain}.pixelcms.vercel.app/`}>
+                  <Link href={`https://${site.subdomain}.cms.shotoo.tech/`}>
                     <Button variant="outline">
                       <ScanEye className="mr-2 h-4 w-4" />{" "}
-                      <span className="hidden md:block">Preview</span>
+                      <span className="hidden md:block">Visit Site</span>
                     </Button>
                   </Link>
                   <Link href={site.url}>
                     <Button variant="outline">
                       <Globe className="mr-2 h-4 w-4" />{" "}
-                      <span className="hidden md:block">Visit Site</span>
+                      <span className="hidden md:block">Your site</span>
                     </Button>
                   </Link>
                 </CardFooter>
