@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/card";
 import { db } from "@/server/db";
 import { auth } from "@clerk/nextjs/server";
-import { Globe, NotebookPen, ScanEye } from "lucide-react";
-import Link from "next/link"; 
+import { Globe, NotebookPen, ScanEye, Trash } from "lucide-react";
+import Link from "next/link";
+import DeleteSiteButton from "./DeleteSiteButton";
 
 export default async function UserSites() {
   const { userId } = auth();
@@ -49,6 +50,7 @@ export default async function UserSites() {
                       <span className="hidden md:block">Your site</span>
                     </Button>
                   </Link>
+                  <DeleteSiteButton siteId={site.id} />
                 </CardFooter>
               </MagicCard>
             ))}

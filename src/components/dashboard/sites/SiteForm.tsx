@@ -94,10 +94,10 @@ export default function SiteForm({
   }
 
   return (
-    <div className="space-y-4">
-      <ScrollArea className="h-72 px-4">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <ScrollArea className="h-[calc(100vh-200px)] ">
+          <div className="space-y-4 px-4">
             <FormField
               control={form.control}
               name="title"
@@ -185,16 +185,14 @@ export default function SiteForm({
                 </FormItem>
               )}
             />
-          </form>
-        </Form>
-      </ScrollArea>
-      <DialogFooter className="px-4">
-        {form.formState.isSubmitting ? (
-          <ButtonLoading>Creating...</ButtonLoading>
-        ) : (
-          <Button type="submit">Create Site</Button>
-        )}
-      </DialogFooter>
-    </div>
+          </div>
+        </ScrollArea>
+        <DialogFooter>
+          <Button type="submit" disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting ? "Creating..." : "Create Site"}
+          </Button>
+        </DialogFooter>
+      </form>
+    </Form>
   );
 }
