@@ -5,6 +5,7 @@ import { db } from "@/server/db";
 import { getSiteDocumentsById } from "@/server/fetchs/getSiteDocumentsById";
 import { NotebookPen } from "lucide-react";
 import Link from "next/link";
+import DeleteDocumentButton from "../DeleteDocumentButton";
 
 export default async function UserDocuments(props: { siteId: string }) {
   const documents = await getSiteDocumentsById(props.siteId);
@@ -26,6 +27,7 @@ export default async function UserDocuments(props: { siteId: string }) {
                     <span className="hidden md:block">Edit</span>
                   </Button>
                 </Link>
+                <DeleteDocumentButton documentId={document.id} />
               </CardFooter>
             </MagicCard>
           ))}
