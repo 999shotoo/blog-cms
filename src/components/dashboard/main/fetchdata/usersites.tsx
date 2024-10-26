@@ -12,20 +12,18 @@ import { auth } from "@clerk/nextjs/server";
 import { Globe, NotebookPen, ScanEye, Trash } from "lucide-react";
 import Link from "next/link";
 import DeleteSiteButton from "./DeleteSiteButton";
+import { get } from "http";
+import { getUserSites } from "@/server/fetchs/getUserSites";
 
 export default async function UserSites() {
   const { userId } = auth();
-  const existingSites = await db.site.findMany({
-    where: {
-      userId: userId as string,
-    },
-  });
+  const existingSites = await getUserSites(userId as string);
   return (
     <>
       <div>
         {existingSites.length !== 0 ? (
           <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 m-2 ">
-            {existingSites.map((site) => (
+            {existingSites.map((site: any) => (
               <MagicCard key={site.id} className="cursor-pointer flex-col">
                 <CardHeader>
                   <CardTitle>{site.title}</CardTitle>
@@ -42,12 +40,6 @@ export default async function UserSites() {
                     <Button variant="outline">
                       <ScanEye className="mr-2 h-4 w-4" />{" "}
                       <span className="hidden md:block">Visit Site</span>
-                    </Button>
-                  </Link>
-                  <Link href={site.url}>
-                    <Button variant="outline">
-                      <Globe className="mr-2 h-4 w-4" />{" "}
-                      <span className="hidden md:block">Your site</span>
                     </Button>
                   </Link>
                   <DeleteSiteButton siteId={site.id} />

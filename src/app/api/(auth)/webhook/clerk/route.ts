@@ -54,20 +54,20 @@ export async function POST(req: Request) {
   const { id } = evt.data;
   const eventType = evt.type;
 
-  console.log("eventType", eventType);
+
 
   switch (eventType) {
     case "user.created":
       try {
         await prisma.user.create({
           data: {
-            clerkUserId:  payload?.data?.id,
-            firstName:  payload?.data?.first_name ,
-            lastName:  payload?.data?.last_name,
-            email:  payload?.data?.email_address ?? payload?.data?.email_addresses[0].email_address,
-            client_ip:  payload?.event_attributes.http_request.client_ip ?? payload?.event_attributes.https_request.client_ip,
-            username:  payload?.data?.username,
-            avatarUrl:  payload?.data?.image_url,
+            clerkUserId: payload?.data?.id,
+            firstName: payload?.data?.first_name,
+            lastName: payload?.data?.last_name,
+            email: payload?.data?.email_address ?? payload?.data?.email_addresses[0].email_address,
+            client_ip: payload?.event_attributes.http_request.client_ip ?? payload?.event_attributes.https_request.client_ip,
+            username: payload?.data?.username,
+            avatarUrl: payload?.data?.image_url,
           },
         })
         return NextResponse.json({
@@ -90,13 +90,13 @@ export async function POST(req: Request) {
             id: payload?.data?.id,
           },
           data: {
-            clerkUserId:  payload?.data?.id,
-            firstName:  payload?.data?.first_name ,
-            lastName:  payload?.data?.last_name,
-            email:  payload?.data?.email_address ?? payload?.data?.email_addresses[0].email_address,
-            client_ip:  payload?.event_attributes.http_request.client_ip ?? payload?.event_attributes.https_request.client_ip,
-            username:  payload?.data?.username,
-            avatarUrl:  payload?.data?.image_url,
+            clerkUserId: payload?.data?.id,
+            firstName: payload?.data?.first_name,
+            lastName: payload?.data?.last_name,
+            email: payload?.data?.email_address ?? payload?.data?.email_addresses[0].email_address,
+            client_ip: payload?.event_attributes.http_request.client_ip ?? payload?.event_attributes.https_request.client_ip,
+            username: payload?.data?.username,
+            avatarUrl: payload?.data?.image_url,
           },
         })
         return NextResponse.json({
@@ -111,24 +111,24 @@ export async function POST(req: Request) {
       }
       break;
 
-      case "user.deleted":
-        try {
-          await prisma.user.delete({
-            where: {
-              clerkUserId: payload?.data?.id,
-            },
-          });
-          return NextResponse.json({
-            status: 200,
-            message: "User info deleted",
-          });
-        } catch (error: any) {
-          return NextResponse.json({
-            status: 400,
-            message: error.message,
-          });
-        }
-        break;
+    case "user.deleted":
+      try {
+        await prisma.user.delete({
+          where: {
+            clerkUserId: payload?.data?.id,
+          },
+        });
+        return NextResponse.json({
+          status: 200,
+          message: "User info deleted",
+        });
+      } catch (error: any) {
+        return NextResponse.json({
+          status: 400,
+          message: error.message,
+        });
+      }
+      break;
 
     default:
       return new Response("Error occured -- unhandeled event type", {

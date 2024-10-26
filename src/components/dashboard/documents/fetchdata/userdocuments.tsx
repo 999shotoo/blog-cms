@@ -2,13 +2,12 @@ import { MagicCard } from "@/components/magicui/magic-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/server/db";
+import { getSiteDocumentsById } from "@/server/fetchs/getSiteDocumentsById";
 import { NotebookPen } from "lucide-react";
 import Link from "next/link";
 
 export default async function UserDocuments(props: { siteId: string }) {
-  const documents = await db.document.findMany({
-    where: { siteId: props.siteId },
-  });
+  const documents = await getSiteDocumentsById(props.siteId);
   return (
     <>
       {documents.length !== 0 ? (

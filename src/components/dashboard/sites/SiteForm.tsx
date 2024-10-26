@@ -19,8 +19,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ButtonLoading } from "@/components/ui/button-loading";
 import { createSite } from "@/server/actions/create-site";
 import { Textarea } from "@/components/ui/textarea";
-import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
-import { Box } from "lucide-react";
+import { UploadDropzone } from "@/lib/uploadthing";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const schema = z.object({

@@ -5,7 +5,10 @@ import GeneralSettings from "@/components/dashboard/settings/GeneralSettings";
 import SitesNavbarWrapper from "@/components/dashboard/sites/sitesdashboardwrapper";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { db } from "@/server/db";
-
+import { getAuthorsBySiteId } from "@/server/fetchs/getAuthorsBySiteId";
+import { getCategoryBySiteId } from "@/server/fetchs/getCategoryBySiteId";
+import { getSiteInfoBySiteId } from "@/server/fetchs/getSiteInfoBySiteId";
+import { auth } from "@clerk/nextjs/server";
 interface Params {
   params: {
     id: string;
@@ -13,33 +16,10 @@ interface Params {
 }
 
 export default async function LandingPage(params: Params) {
-  const site = await db.site.findUnique({
-    where: {
-      id: params.params.id,
-    },
-  });
-  const authors = await db.author.findMany({
-    where: {
-      siteId: params.params.id,
-    },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      createdAt: true,
-    },
-  });
-  const categories = await db.category.findMany({
-    where: {
-      siteId: params.params.id,
-    },
-    select: {
-      id: true,
-      name: true,
-      createdAt: true,
-    },
-  });
-
+  const { userId } = auth();
+  const site = await getSiteInfoBySiteId(params.params.id, userId as string);
+  const authors = await getAuthorsBySiteId(params.params.id);
+  const categories = await getCategoryBySiteId(params.params.id);
   if (!site || !authors || !categories) {
     return null;
   }
@@ -59,7 +39,7 @@ export default async function LandingPage(params: Params) {
                 <TabsTrigger value="categories">Categories</TabsTrigger>
               </TabsList>
               <TabsContent className="py-6" value="general">
-                <GeneralSettings site={site} />
+                <GeneralSettings site={site[0]} />
               </TabsContent>
               <TabsContent className="py-6" value="authors">
                 <DataTable columns={authorsColumns} data={authors} />
