@@ -15,7 +15,7 @@ export default clerkMiddleware(async (auth, req) => {
 
   try {
     // Define allowed Domains (localhost and production domain)
-    const allowedDomains = ["localhost:3000", "cms.shotoo.tech"];
+    const allowedDomains = ["localhost:3000", "cms.mohitshedge.me"];
 
   
     // Verify if hostname exist in allowed domains
